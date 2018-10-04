@@ -2,7 +2,7 @@
 using System;
 
 
-namespace AreaCircle
+namespace ExceptionHandling
 {
 
     // no negative exception *********************

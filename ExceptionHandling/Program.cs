@@ -15,7 +15,7 @@ namespace ExceptionHandling
         public double MathPi = 3.14159;
         public int PreDeterminedCircleDiameter = 2;
 
-        public void GenerateExceptions ()
+        public void GenerateExceptions()
         {
 
             if (userRadiusInput <= 0)
@@ -46,7 +46,7 @@ namespace ExceptionHandling
         
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, this application caculates the Area & Circumference of a circle. Please enter radius of circle:");
+            Console.WriteLine("Hello, this application calculates the Area & Circumference of a circle. Please enter radius of circle:");
             Console.WriteLine("********************************************************************");
 
             try
@@ -59,20 +59,8 @@ namespace ExceptionHandling
             }
             catch (NoNegativeZeroException)
             {                
-                throw;
-            } 
-            
-            catch (NullReferenceException e)
-            {
-                Console.WriteLine("{0} null exception caught", e);
+                throw; 
             }
-
-
-            finally
-            {                
-                Console.WriteLine("Result: 0" );
-            }
-
 
         }
     }

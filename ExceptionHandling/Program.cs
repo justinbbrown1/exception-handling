@@ -4,108 +4,76 @@ using System;
 
 namespace ExceptionHandling
 {
-
+    public class NoNegativeZeroException : Exception
+    {
+        public NoNegativeZeroException() : base(String.Format("NoNegativeZeroException Generated: The number entered is less than/= 0")) { }
+    }
 
     public class FindingCircumferenceAndArea
     {
-        double UserInputForRadius = Convert.ToDouble(Console.ReadLine());
+        double userRadiusInput = Convert.ToDouble(Console.ReadLine());
         public double MathPi = 3.14159;
-        public int CircleDiameter = 2;        
+        public int PreDeterminedCircleDiameter = 2;
 
-                     
-        public double CalculateCircleArea()
-        {            
-            double finalAreaOutput = MathPi * (UserInputForRadius * UserInputForRadius);
-            return finalAreaOutput;
+        public void GenerateExceptions ()
+        {
+
+            if (userRadiusInput <= 0)
+            {
+                throw new NoNegativeZeroException();
+            }
+            
         }
+
+        public double CalculateCircleArea()
+        {
+            GenerateExceptions();           
+            return  MathPi * (userRadiusInput * userRadiusInput);       
+            
+        }
+
         public double CalculateCircleCircumference()
         {
-            double finalCircumferenceOutput = CircleDiameter * MathPi * UserInputForRadius;            
-            return finalCircumferenceOutput;
+            GenerateExceptions();            
+            return PreDeterminedCircleDiameter * MathPi * userRadiusInput;                    
         }
 
     }
-
-    public class ThrowNoNegativeException : Exception
-    {
-        public ThrowNoNegativeException() : base(String.Format("NoNegativeException Generated: The number entered is less than 0")) { }
-    }
-
+         
 
     class Program
     {
-        //TODO:
+        
         public static void Main(string[] args)
         {
-
-            Console.WriteLine("Hello, this program caculates the Area of a circle. Please enter radius of circle:");
+            Console.WriteLine("Hello, this application caculates the Area & Circumference of a circle. Please enter radius of circle:");
             Console.WriteLine("********************************************************************");
-            FindingCircumferenceAndArea cirA = new FindingCircumferenceAndArea();
-
-            double areaOfCircle = cirA.CircleArea();
-            double radius = cirA.radius;
-
-
-            do
-            {
-
-                try
-                {
-                    if (radius > 0)
-                    {
-
-                        Console.WriteLine(areaOfCircle);
-
-
-                    }
-                    else
-                    {
-
-                        throw (new ThrowNoNegativeException("NoNegativeException Generated: The number entered is less than 0"));
-
-                    }
-
-                }
-                catch (ThrowNoNegativeException e)
-                {
-                    Console.WriteLine(e.Message.ToString());
-                    Console.ReadLine();
-
-                } 
-            } while (false);
-
-
-
-            Console.WriteLine("Hello, this program caculates the Circumference of a circle. Please enter radius of circle ");
-            Console.WriteLine("********************************************************************");
-            FindingCircumferenceAndArea cirC = new FindingCircumferenceAndArea();
-
-
-            double circumOfCircle = cirC.CircleCircumference();
 
             try
             {
-                if (radius > 0)
-                {
+                FindingCircumferenceAndArea AreaCircumference = new FindingCircumferenceAndArea();
 
-                    Console.WriteLine(circumOfCircle);
+                Console.WriteLine("Area:{0}", AreaCircumference.CalculateCircleArea());
 
-
-                }
-                else
-                {
-
-                    throw (new ThrowNoNegativeException("NoNegativeException Generated: The number entered is less than 0"));
-
-                }
-
+                Console.WriteLine("Circumference:{0}", AreaCircumference.CalculateCircleCircumference());
             }
-            catch (ThrowNoNegativeException e)
+            catch (NoNegativeZeroException)
+            {                
+                throw;
+            } 
+            
+            catch (NullReferenceException e)
             {
-                Console.WriteLine(e.Message.ToString());
-                Console.ReadLine();
-
+                Console.WriteLine("{0} null exception caught", e);
             }
+
+
+            finally
+            {                
+                Console.WriteLine("Result: 0" );
+            }
+
+
         }
     }
 }
